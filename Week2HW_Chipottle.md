@@ -24,5 +24,7 @@ Black Beans: 282 , Pinto beans 105
 `grep -r 'dictionary' | wc -w` yields 116
 ##### Q8. Optional: Use the the command line to discover something "interesting" about the Chipotle data. Try using the commands from the "advanced" section!
 `sort -k 5,5 chipotle.tsv`
-1786    4       Chips and Guacamole     NULL    $17.80
-from reading through data, this was the highest someone paid for chips and guac that day
+
+1786 | 4  |     Chips and Guacamole   |  NULL   | $17.80
+
+From reading through the data, this was the highest someone paid for chips and guac that day
