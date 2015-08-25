@@ -15,14 +15,14 @@ Seems to be 1834 orders
 ##### Q3. How many lines are in this file?
 4,623
 ##### Q4. Which burrito is more popular, steak or chicken?
-'''grep -i ''_____'burrito' chipotle.tsv | wc -l; 'chicken' yields 553; 'steak' yields 368. Chicken burritos look more popular.
+{grep -i ''_____'burrito' chipotle.tsv | wc -l}'chicken' yields 553; 'steak' yields 368. Chicken burritos look more popular.
 ##### Q5. Do chicken burritos more often have black beans or pinto beans?
 Black Beans: 282 , Pinto beans 105
 ##### Q6. Make a list of all of the CSV or TSV files in the DAT8 repo (using a single command). Think about how wildcard characters can help you with this task.
-find -name *.tsv ?
+{find -name *.tsv} ?
 ##### Q7. Count the approximate number of occurrences of the word "dictionary" (regardless of case) across all files in the DAT8 repo
-grep -r 'dictionary' | wc -w; yields 116
+{grep -r 'dictionary' | wc -w} yields 116
 ##### Q8. Optional: Use the the command line to discover something "interesting" about the Chipotle data. Try using the commands from the "advanced" section!
-'''sort -k 5,5 chipotle.tsv
+{sort -k 5,5 chipotle.tsv}
 1786    4       Chips and Guacamole     NULL    $17.80
 from reading through data, this was the highest someone paid for chips and guac that day
