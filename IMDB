@@ -1,0 +1,126 @@
+Work for IMDB assignment
+
+impport pandas as pd
+import matplotlib.pyplot as plt
+
+pd.read_table('imdb_1000.csv')
+
+imdb_1000 = pd.read_table('imdb_1000.csv', sep=',')
+
+"""
+There are 979 rows and 6 columns
+"""
+
+imdb_1000.dtypes
+
+"""
+star_rating       float64
+title              object
+content_rating     object
+genre              object
+duration            int64
+actors_list        object
+"""
+
+imdb_1000.duration.mean()
+
+"""
+mean   120.97957099080695 or an hour and twenty-one minutes
+"""
+ imdb_1000.sort('duration')
+ 
+""" 
+ Freaks is the shortest movie and 64 minutes, Hamlet is the lonest at 242 minutes
+"""
+
+imdb_1000.duration.plot(kind='hist', xlim=(0, 250), bins=30, title='histogram of duration')
+plt.xlabel('Duration(s)')
+plt.ylabel('Movies')
+
+imdb_1000.duration.plot(kind='box')
+
+"""
+Part 2
+"""
+
+# count how many movies have each of the content ratings
+
+
+# use a visualization to display that same data, including a title and x and y labels
+
+imdb_1000['content_rating'].value_counts().plot(kind = 'bar', title = 'Movie Count by Rating')
+plt.xlabel('Movie Ratings')
+plt.ylabel('# of Movies')
+
+# convert the following content ratings to "UNRATED": NOT RATED, APPROVED, PASSED, GP
+
+imdb_1000.content_rating.replace('PASSED', 'UNRATED', inplace=True)
+imdb_1000.content_rating.replace('GP', 'UNRATED', inplace=True)
+imdb_1000.content_rating.replace('APPROVED', 'UNRATED', inplace=True)
+imdb_1000.content_rating.replace('NOT RATED', 'UNRATED', inplace=True)
+
+imdb_1000['content_rating'].value_counts()
+# convert the following content ratings to "NC-17": X, TV-MA
+imdb_1000.content_rating.replace('X', 'NC-17', inplace=True)
+imdb_1000.content_rating.replace('TV-MA', 'NC-17', inplace=True)
+
+# count the number of missing values in each column
+
+imdb_1000.isnull().sum()
+# if there are missing values: examine them, then fill them in with "reasonable" values
+
+imdb_1000[imdb_1000.content_rating.isnull()]
+imdb_1000.content_rating.fillna(value='UNRATED', inplace=True)
+
+# calculate the average star rating for movies 2 hours or longer,
+
+imdb_1000[imdb_1000.duration >= 120].star_rating.mean()
+
+"""
+7.948898678414082
+"""
+
+# and compare that with the average star rating for movies shorter than 2 hours
+
+imdb_1000[imdb_1000.duration <= 120].star_rating.mean()
+
+"""
+7.8384898710865345
+"""
+
+# use a visualization to detect whether there is a relationship between duration and star rating
+
+imdb_1000.groupby('star_rating').mean().plot(kind='bar')
+
+"""
+There is a slight rise among movies that are between movies that are about 2hrs long to 2.5 or 3hrs long
+""" 
+
+# calculate the average duration for each genre
+
+imdb_1000.drop('star_rating', axis=1).groupby('genre').mean()
+
+
+# visualize the relationship between content rating and duration
+
+imdb_1000.drop('star_rating', axis=1).groupby('content_rating').mean().plot(kind='bar')
+
+# determine the top rated movie (by star rating) for each genre
+
+imdb_1000.groupby('genre').star_rating.max()
+
+# check if there are multiple movies with the same title, and if so, determine if they are actually duplicates
+
+I tried here
+imdb_1000.title.duplicated()
+
+# calculate the average star rating for each genre, but only include genres with at least 10 movies
+
+And here: 
+imdb_1000[imdb_1000.genre > 10].star_rating.mean()
+
+imdb_1000[imdb_1000.groupby('genre').star_rating.mean(), if x in 'genre' > 10]('this doesn\'t work at all')
+
+imdb_1000.groupby('genre').star_rating.mean()
+
+imdb_1000[imdb_1000.groupby('genre').count() > 10].mean()
